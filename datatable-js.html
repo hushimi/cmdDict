@@ -1,0 +1,45 @@
+<script>
+let $table
+let pageUrl
+
+$(document).ready( function () {
+  google.script.run.withSuccessHandler(setPageUrl).getUrl()
+  
+  // configure DataTable
+  $table = $('#cmd_table').DataTable({
+    "ordering": true,
+    "order": [[ 1, "asc" ]],
+    "info": false,
+    "scrollX": true,
+    "dom": '<"top"f>rt<"bottom"lp><"clear">',
+    
+    "columnDefs": [{
+      "targets": 1,
+      "render": function ( data, type, row, meta ) {
+        if(data !== "no data") {
+          // language は各ページ専用のjsで値を設定する
+          return '<a href="'+ pageUrl +'?v=view&id=' + row[0] + '&language=' + language + '">' + data + '</a>'
+        } else {
+          return data
+        }
+      }
+    }]
+  })  // END of DataTable configuration
+  
+  $table.column(0).visible(false)
+  $table.column(2).visible(false)
+})
+
+
+function setPageUrl(url) {
+  pageUrl = url
+}
+
+
+function drawTable(data) {
+  $table.clear()
+  
+  data.map(dataRow => $table.row.add(dataRow))
+  $table.search('').draw()
+}
+</script>

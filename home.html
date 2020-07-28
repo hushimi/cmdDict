@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <?!= include("general-css") ?>
+  </head>
+  <body>
+  
+  <nav class="blue-grey darken-2 nav-bar">
+    <div class="nav-wrapper">
+      <a href="<?= ScriptApp.getService().getUrl() ?>" class="brand-logo center"><i class="material-icons">remove_red_eye</i>cmd_dict</a>
+      <ul class="left" id="nav-mobile">
+        <li><a href="<?= ScriptApp.getService().getUrl() ?>?v=register"><i class="material-icons">book</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="container">
+    <div class="row">
+      <h4 class="title">Command Dictionary</h4>
+      <div class="input-field col s12">
+        <select id="command" class="browser-default" required>
+          <option value="" disabled selected>Choose command type</option>
+          <?!= list ?>
+        </select>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <table id="cmd_table" class="display nowrap" style="width: 100%;">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Purpose</th>
+        <th>Command</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>no data</td><td>no data</td><td>no data</td><td>no data</td></tr>
+    </tbody>
+    </table>
+    
+  </div> <!-- CLOSE CONTAINER -->
+  
+  <div class="empty"></div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+  <?!= include("home-js") ?>
+  <?!= include("datatable-js") ?>
+  </body>
+</html>
+
+
