@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <?!= include("general-css") ?>
+  </head>
+  <body>
+  
+  <nav class="blue-grey darken-2 nav-bar">
+    <div class="nav-wrapper">
+      <a href="<?= ScriptApp.getService().getUrl() ?>" class="brand-logo center"><i class="material-icons">remove_red_eye</i>cmd_dict</a>
+      <ul class="left" id="nav-mobile">
+        <li><a href="<?= ScriptApp.getService().getUrl() ?>?v=register"><i class="material-icons">book</i></a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  
+  <div class="container">
+    <h4 class="title">Register Form</h4>
+    <div class="row">
+      <div class="input-field col s12">
+        <select id="command" class="browser-default" required>
+          <option value="0" disabled selected>Choose command type</option>
+          <?!= list ?>
+        </select>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">book</i>
+        <input id="purpose" type="text" class="validate" required>
+        <label for="purpose">Purpose</label>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row">
+      <div class="input-field col s12">
+        <p style="font-size:15px;margin-bottom: 10px;">Command</p>
+        <div id="editor" style="height: 300px;width: 100%;"></div>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">assignment</i>
+        <textarea id="description" class="textarea"></textarea>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row">
+      <div class="input-field col s12 center-align">
+        <button id="btn" class="waves-effect waves-light btn-small deep-purple lighten-1" param="<?!= mode ?>" language="<?!= language ?>" cmdId="<?!= cmdId?>">
+          REGISTER
+        </button>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    
+  </div> <!-- CLOSE CONTAINER -->
+    
+  <div class="empty"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js"></script>
+  <?!= include("register-js") ?>
+  <?!= include("autosize-min") ?>
+  </body>
+</html>
+
+

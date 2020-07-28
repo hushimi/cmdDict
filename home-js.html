@@ -1,0 +1,17 @@
+<script>
+// use to draw datatable
+let language
+
+$(document).ready( function () {
+  let $selectBox = $('#command')
+  $selectBox.on("change", createTable)
+  let instances = M.FormSelect.init($selectBox)
+})
+
+
+function createTable() {
+  language = $('#command option:selected').text()
+  google.script.run.withSuccessHandler(drawTable).getSheetData(language)
+}
+
+</script>

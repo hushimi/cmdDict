@@ -1,0 +1,37 @@
+<script>
+let language
+
+$(document).ready( function() {
+  // datatable の作成に使用する変数
+  language = $('#code').attr("data-language")
+  google.script.run.withSuccessHandler(drawTable).getSheetData(language)
+  google.script.run.withSuccessHandler(setHref).getUrl()
+  
+  $('#deleteBtn').on('click', delData)
+})
+
+
+function delData() {
+  let confirm = window.confirm("このレコードを削除します")
+  if(confirm){
+    
+    $('#purpose').html("")
+    $('#code').html("")
+    $('#description').html("")
+    
+    $('#editBtn').addClass('disabled')
+    $('#deleteBtn').addClass('disabled')
+    
+    google.script.run.withSuccessHandler(drawTable).deleteRecord(Number($('#purpose').attr('cmdId')), language)
+  }
+}
+
+
+function setHref(url){
+  let appUrl = url
+  let id = $('#purpose').attr('cmdId')
+  let language = $('#code').attr('data-language')
+  
+  $('#editBtn').attr('href', appUrl + "?v=register&id=" + id + '&language=' + language)
+}
+</script>

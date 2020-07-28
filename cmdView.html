@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <?!= include("prism-css") ?>
+    <?!= include("general-css") ?>
+  </head>
+  <body>
+  <nav class="blue-grey darken-2 nav-bar">
+    <div class="nav-wrapper">
+      <a href="<?= ScriptApp.getService().getUrl() ?>" class="brand-logo center"><i class="material-icons">remove_red_eye</i>cmd_dict</a>
+      <ul class="left" id="nav-mobile">
+        <li><a href="<?= ScriptApp.getService().getUrl() ?>?v=register"><i class="material-icons">book</i></a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <div class="row  valign-wrapper">
+      <div class="col s12">
+        <h4 class="title" id="purpose" cmdId="<?!= cmdId ?>"><?!= purpose ?></h4>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row">
+      <div class="col s12">
+      <pre class="line-numbers" data-language="<?!= language ?>" id="code"><code class="language-<?!= language ?>" id="code-content"><?!= code ?></code></pre>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row right">
+      <div class="col s12">
+        <a id="editBtn" class="waves-effect waves-light btn-small deep-purple lighten-1" href="#">
+          <i class="material-icons center">edit</i>
+        </a>
+        <button id="deleteBtn" class="waves-effect waves-light btn-small red lighten-1">
+          <i class="material-icons center">clear</i>
+        </button>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <div class="row">
+      <div class="input-field col s12">
+        <h4 class="title">Description</h4>
+        <blockquote id="description">
+          <?!= description ?>
+        </blockquote>
+      </div>
+    </div> <!-- CLOSE ROW -->
+    
+    <table id="cmd_table" class="display nowrap" style="width: 100%;">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Purpose</th>
+        <th>Command</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>no data</td><td>no data</td><td>no data</td><td>no data</td></tr>
+    </tbody>
+    </table>
+    
+  </div> <!-- CLOSE CONTAINER -->
+  <div class="empty"></div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+  <?!= include("prism-js") ?>
+  <?!= include("datatable-js") ?>
+  <?!= include("cmdView-js") ?>
+  </body>
+</html>
+
+

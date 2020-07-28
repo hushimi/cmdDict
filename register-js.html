@@ -1,0 +1,100 @@
+<script>
+let editor = ace.edit("editor")
+
+$(document).ready( function () {
+  let $selectBox = $('#command')
+  M.FormSelect.init($selectBox)
+  $selectBox.on('change',setLanguage)
+
+  $('#btn').on("click", btnClicked)
+  $('#description').autosize()
+  
+  // configure ace editor
+  editor.setTheme("ace/theme/monokai")
+  editor.setFontSize(12)
+  editor.getSession().setTabSize(2)
+  editor.setShowPrintMargin(false)
+  
+  // $('#btn')がeditかregisterか判定
+  if($('#btn').attr('param') == 'edit') {
+    setEditMode()
+  }
+  
+})
+
+
+function setLanguage() {
+  let language = $( "#command option:selected").text()
+  if($('#command option:selected').text() !== "Choose command type") {
+    editor.getSession().setMode("ace/mode/" + language)
+  }
+}
+
+
+function btnClicked() {
+  if($('#command option:selected').text() == "Choose command type") {
+    M.toast({html: "コマンドタイプを選択してください"})
+    
+  } else if(!$('#purpose')[0].reportValidity()) {
+    M.toast({html: "Purposeを入力してください"})
+    
+  } else if(editor.getValue() == "") {
+    M.toast({html: "コマンドが未入力です"})
+    
+  } else {
+    if($('#btn').attr("param") == "register"){
+      addRecord("register")
+    }else if($('#btn').attr('param') == 'edit') {
+      addRecord("modify")
+    }
+  }
+}
+
+
+function addRecord(param) {
+  let cmdName = $('#command option:selected').text()
+  let cmdInfo = [[$('#purpose').val(), editor.getValue(), $('#description').val()]]
+  
+  if(param == "register"){
+    google.script.run.addRecord(cmdName, cmdInfo)
+  }else if(param == "modify") {
+    google.script.run.addRecord(cmdName, cmdInfo, Number($('#btn').attr('cmdId')))
+  }
+  
+  initData()  
+  M.toast({html: "コード記録成功"})
+}
+
+
+function initData() {
+  let $command = $('#command')
+  $command.prop("selectedIndex", 0)
+  M.FormSelect.init($command)
+  
+  $('#purpose').val("")
+  editor.setValue("",0)
+  $('#description').val('')
+  $('#description').trigger('autosize.resize')
+}
+
+
+function setEditMode() {
+  let language = $('#btn').attr('language')
+  let cmdId = Number($('#btn').attr('cmdId'))
+  $('#command').val(language)
+  
+  google.script.run.withSuccessHandler(setValue).getRow(cmdId, language)
+  editor.getSession().setMode("ace/mode/" + language)
+}
+
+
+function setValue(record) {
+  $('#purpose').val(record[1])
+  $('#purpose').select()
+  
+  editor.setValue(record[2], 1)
+  
+  $('#description').val(record[3])
+  $('#description').trigger('autosize.resize')
+}
+</script>
